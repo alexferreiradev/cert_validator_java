@@ -1,4 +1,4 @@
-package dev.gojava.certificatevalidator
+package dev.gojava.certificatevalidator.java
 
 import org.junit.Assert
 import org.junit.Test
