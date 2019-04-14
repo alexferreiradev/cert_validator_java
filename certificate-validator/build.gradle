@@ -26,6 +26,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.codehaus.groovy:groovy'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Dependenciass de log
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+
+	//	Dependencias de testes
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation group: 'junit', name: 'junit', version: '4.12'
