@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 @RequestMapping("/validator")
@@ -16,20 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody
 @SuppressWarnings("unused")
 class ValidatorController {
 
-	private static final String INVALID_TEMPLATE_PAGE = "page/validator/invalid"
-	private static final String VALID_TEMPLATE_PAGE = "page/validator/valid"
+	private static final String INVALID_TEMPLATE_PAGE = "/page/validator/invalid"
+	private static final String VALID_TEMPLATE_PAGE = "/page/validator/valid"
 
 	@Autowired
 	CertificateService certificateService
 
 	@GetMapping("/")
-	@ResponseBody
 	@SuppressWarnings("unused")
 	String getIndex() {
 		return "/page/validator"
 	}
 
-	@GetMapping(name = "/validate")
+	@GetMapping("/validate")
 	@SuppressWarnings("unused")
 	String validate(@RequestParam("token") String token) {
 		boolean tokenExist = certificateService.tokenExist(token)
