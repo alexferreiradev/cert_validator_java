@@ -4,6 +4,7 @@ import dev.gojava.certificatevalidator.data.model.Certificate
 import dev.gojava.certificatevalidator.service.exception.NotFoundException
 import groovy.transform.CompileStatic
 
+@SuppressWarnings("unused")
 @CompileStatic
 interface CertificateService {
 
