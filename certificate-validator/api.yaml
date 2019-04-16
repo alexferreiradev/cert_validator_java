@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+    description: "API definida para site do GOJAVA"
+    version: "1.0.0"
+    title: "API GOJAVA"
+    termsOfService: "http://swagger.io/terms/"
+    contact:
+        email: "apiteam@swagger.io"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "gojava.dev"
+basePath: "/v1"
+tags:
+-   name: "Navegação"
+    description: "Everything about certificates"
+    externalDocs:
+        description: "Find out more"
+        url: "http://swagger.io"
+-   name: "Certificado"
+    description: "Everything about certificates"
+    externalDocs:
+        description: "Find out more"
+        url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+    /home:
+        get:
+            tags:
+            - "Navegação"
+            summary: "Acesso a página inicial do site"
+            description: ""
+            operationId: "getHome"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/html"
+            responses:
+                200:
+                    description: "Página html para home"
+                405:
+                    description: "Invalid input"
+            security: []
+    /validator:
+        get:
+            tags:
+            - "Navegação"
+            summary: "Acesso a página de validação de certificados"
+            description: ""
+            operationId: "getValidador"
+            produces:
+            - "application/html"
+            responses:
+                200:
+                    description: "Página html para validar token de certificado"
+            security: []
+    /validator/validate/:
+        get:
+            tags:
+            - "Certificado"
+            summary: "Retorna se um token é válido ou não"
+            description: "De acordo com um token via parâmetro, valida se um certificado que gerou este token é válido. Caso o token seja encontrado na base o token é válido, logo o certificado é válido"
+            operationId: "validateToken"
+            produces:
+            - "application/json"
+            parameters:
+            -   name: "token"
+                in: "query"
+                description: "Token do certificado a ser validado"
+                required: true
+                type: "integer"
+            responses:
+                200:
+                    description: "Objeto json com resultado da validação"
+                    schema:
+                        $ref: "#/definitions/ValidateResponse"
+            security:
+            -   basic: []
+            -   api_key: []
+
+securityDefinitions:
+    basic:
+        type: "basic"
+    api_key:
+        type: "apiKey"
+        name: "api_key"
+        in: "header"
+
+definitions:
+    ValidateResponse:
+        type: "object"
+        properties:
+            status:
+                type: "string"
+                description: "\"valid\" caso o token é válido e \"invalid\" caso não"
+                enum:
+                - "VALID"
+                - "INVALID"
+            certificate:
+                $ref: '#/definitions/Certificate'
+    Certificate:
+        type: "object"
+        properties:
+            id:
+                type: "integer"
+                format: "int64"
+            uri:
+                type: "string"
+                description: "Local que o PDF foi salvo"
+            event:
+                $ref: '#/definitions/Event'
+            updateTimestamp:
+                type: "string"
+            createdTimestamp:
+                type: "string"
+    Event:
+        type: "object"
+        properties:
+            id:
+                type: "integer"
+                format: "int64"
+            name:
+                type: "string"
+            place:
+                type: "string"
+            hours:
+                type: "string"
+            description:
+                type: "string"
+            startTimestamp:
+                type: "string"
+                description: "Data e hora que começou o evento"
+            endTimestamp:
+                type: "string"
+                description: "Data e hora que acabou o evento"
+
+externalDocs:
+    description: "Wiki do projeto no gitHUB"
+    url: "https://github.com/alexferreiradev/cert_validator_java/wiki"
