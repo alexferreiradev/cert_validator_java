@@ -1,4 +1,4 @@
-package dev.gojava.certificatevalidator
+package dev.gojava.certificatevalidator.application
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
