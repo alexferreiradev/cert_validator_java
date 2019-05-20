@@ -90,4 +90,13 @@ class CertificateServiceTest {
 		expectedException.expectMessage("Não foi encontrado o model devido erro interno")
 		service.findByToken(invalidToken)
 	}
+
+	@Test
+	void tokenExistNotThrowError_whenThrowAnyErrorIntern() {
+		String invalidToken = "123"
+		Mockito.when(repository.findDistinctByToken(invalidToken)).thenThrow(RuntimeException.class)
+
+		boolean exist = service.tokenExist(invalidToken)
+		Assert.assertFalse(exist)
+	}
 }

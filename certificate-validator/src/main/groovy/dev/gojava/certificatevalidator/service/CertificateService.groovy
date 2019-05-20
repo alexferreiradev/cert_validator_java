@@ -25,7 +25,12 @@ class CertificateService {
 	}
 
 	boolean tokenExist(String token) {
-		return findByToken(token)
+		try {
+			return findByToken(token) != null
+		} catch (Exception ignored) {
+		}
+
+		return false
 	}
 
 	Certificate findByToken(String token) throws NotFoundException {
