@@ -14,14 +14,29 @@ class CertificateService {
 	private CertificateRepository certificateRepository
 
 	Certificate get(Long id) throws NotFoundException {
-		return null
+		NotFoundException notFoundException = new NotFoundException("id", String.valueOf(id))
+		Optional<Certificate> byId = Optional.empty()
+		try {
+			byId = certificateRepository.findById(id)
+		} catch (Exception e) {
+			notFoundException = new NotFoundException(e)
+		}
+		return byId.orElseThrow({ -> notFoundException })
 	}
 
 	boolean tokenExist(String token) {
-		return false
+		return findByToken(token)
 	}
 
 	Certificate findByToken(String token) throws NotFoundException {
-		return null
+		NotFoundException notFoundException = new NotFoundException("token", token)
+		Optional<Certificate> byToken = Optional.empty()
+		try {
+			byToken = certificateRepository.findDistinctByToken(token)
+		} catch (Exception e) {
+			notFoundException = new NotFoundException(e)
+		}
+
+		return byToken.orElseThrow({ -> notFoundException })
 	}
 }

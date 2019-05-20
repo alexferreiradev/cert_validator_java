@@ -40,9 +40,7 @@ class CertificateServiceTest {
 	void tokenExist_whenHasCertificateToken() {
 		Certificate cert1 = Mockito.mock(Certificate)
 		String validToken = "123"
-		Mockito.when(cert1.token).thenReturn(validToken)
-		List<Certificate> fakeList = [cert1]
-		Mockito.when(repository.findAll()).thenReturn(fakeList)
+		Mockito.when(repository.findDistinctByToken(validToken)).thenReturn(Optional.of(cert1))
 
 		boolean tokenExist = service.tokenExist(validToken)
 
@@ -51,11 +49,9 @@ class CertificateServiceTest {
 
 	@Test
 	void certificateCanBeFound_whenRepositoryHas() {
-		Certificate cert1 = Mockito.mock(Certificate)
 		String validToken = "123"
-		Mockito.when(cert1.token).thenReturn(validToken)
-		List<Certificate> fakeList = [cert1]
-		Mockito.when(repository.findAll()).thenReturn(fakeList)
+		Certificate cert1 = Mockito.mock(Certificate)
+		Mockito.when(repository.findDistinctByToken(validToken)).thenReturn(Optional.of(cert1))
 
 		Certificate byToken = service.findByToken(validToken)
 
@@ -64,11 +60,10 @@ class CertificateServiceTest {
 
 	@Test
 	void certificateCanBeFound_whenRepositoryHasById() {
-		Certificate cert1 = Mockito.mock(Certificate)
 		Long validId = Long.valueOf(1)
+		Certificate cert1 = Mockito.mock(Certificate)
 		Mockito.when(cert1.id).thenReturn(validId)
-		List<Certificate> fakeList = [cert1]
-		Mockito.when(repository.findAll()).thenReturn(fakeList)
+		Mockito.when(repository.findById(validId)).thenReturn(Optional.of(cert1))
 
 		Certificate byToken = service.get(validId)
 
@@ -77,11 +72,22 @@ class CertificateServiceTest {
 
 //	 +++++++++++++++++++++++++++++++++++++ Testes negativos e de tickets
 	@Test
-	void invalidTokenThrowNotFound_whenRepositoryThrowAnyError() {
-		String invalidToken = "123"
-		Mockito.when(repository.findAll()).thenThrow(RuntimeException.class)
+	void invalidIdThrowNotFound_whenRepositoryThrowAnyError() {
+		Long invalidId = Long.valueOf(1)
+		Mockito.when(repository.findById(invalidId)).thenThrow(RuntimeException.class)
 
 		expectedException.expect(NotFoundException)
+		expectedException.expectMessage("Não foi encontrado o model devido erro interno")
+		service.get(invalidId)
+	}
+
+	@Test
+	void invalidTokenThrowNotFound_whenRepositoryThrowAnyError() {
+		String invalidToken = "123"
+		Mockito.when(repository.findDistinctByToken(invalidToken)).thenThrow(RuntimeException.class)
+
+		expectedException.expect(NotFoundException)
+		expectedException.expectMessage("Não foi encontrado o model devido erro interno")
 		service.findByToken(invalidToken)
 	}
 }

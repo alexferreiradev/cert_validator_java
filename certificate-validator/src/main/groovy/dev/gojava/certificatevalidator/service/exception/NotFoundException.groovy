@@ -9,7 +9,11 @@ import groovy.transform.ToString
 @ToString(includeFields = true, includeSuper = true)
 class NotFoundException extends Exception {
 
-	NotFoundException(String searchKey) {
-		super("Não foi encontrado o model com chave de busca: ${searchKey}")
+	NotFoundException(String searchKey, String value) {
+		super("Não foi encontrado o model com chave de busca: ${searchKey} com valor: ${value}")
+	}
+
+	NotFoundException(Throwable cause) {
+		super("Não foi encontrado o model devido erro interno", cause)
 	}
 }
