@@ -5,8 +5,8 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @CompileStatic
-@EqualsAndHashCode(callSuper = true)
-@ToString(includeFields = true, includeSuper = true)
+@EqualsAndHashCode
+@ToString(includeFields = true)
 class Certificate extends BaseModel {
 	String totalHours
 	String token

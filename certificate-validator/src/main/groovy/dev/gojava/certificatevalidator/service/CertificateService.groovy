@@ -1,16 +1,27 @@
 package dev.gojava.certificatevalidator.service
 
 import dev.gojava.certificatevalidator.data.model.Certificate
+import dev.gojava.certificatevalidator.data.repository.CertificateRepository
 import dev.gojava.certificatevalidator.service.exception.NotFoundException
 import groovy.transform.CompileStatic
+import org.springframework.stereotype.Service
 
 @SuppressWarnings("unused")
+@Service
 @CompileStatic
-interface CertificateService {
+class CertificateService {
 
-	Certificate get(Long id) throws NotFoundException
+	private CertificateRepository certificateRepository
 
-	boolean tokenExist(String token)
+	Certificate get(Long id) throws NotFoundException {
+		return null
+	}
 
-	Certificate findByToken(String token) throws NotFoundException
+	boolean tokenExist(String token) {
+		return false
+	}
+
+	Certificate findByToken(String token) throws NotFoundException {
+		return null
+	}
 }
