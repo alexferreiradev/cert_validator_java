@@ -1,7 +1,6 @@
 package dev.gojava.certificatevalidator.controler
 
-
-import dev.gojava.certificatevalidator.main.CertificateValidatorApplication
+import dev.gojava.certificatevalidator.application.CertificateValidatorApplication
 import dev.gojava.certificatevalidator.service.CertificateService
 import org.hamcrest.Matchers
 import org.junit.Test
