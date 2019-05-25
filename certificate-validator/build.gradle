@@ -12,6 +12,7 @@ group = 'dev.gojava'
 version = '1.0.0-SNAPSHOT'
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 //noinspection GroovyAssignabilityCheck
 repositories {
@@ -21,16 +22,21 @@ repositories {
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	Dependencias do Spring
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+	implementation 'com.h2database:h2' // Banco de dados
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.codehaus.groovy:groovy'
-	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-	
+	implementation 'org.springframework.boot:spring-boot-starter-web' // MVC
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // View com thymeleaf
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools' // Configurações para ambiente de desenvolvimento
+
 // Dependenciass de log
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
-	
+
+//	Dependencias para compilar em Groovy
+	implementation 'org.codehaus.groovy:groovy'
+
 //	Dependencias de teste ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
