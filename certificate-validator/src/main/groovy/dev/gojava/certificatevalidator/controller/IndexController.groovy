@@ -1,4 +1,4 @@
-package dev.gojava.certificatevalidator.controler
+package dev.gojava.certificatevalidator.controller
 
 import groovy.transform.CompileStatic
 import org.springframework.web.bind.annotation.GetMapping

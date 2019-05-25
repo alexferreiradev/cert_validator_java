@@ -1,4 +1,4 @@
-package dev.gojava.certificatevalidator.controler
+package dev.gojava.certificatevalidator.controller
 
 import dev.gojava.certificatevalidator.application.CertificateValidatorApplication
 import dev.gojava.certificatevalidator.service.CertificateService

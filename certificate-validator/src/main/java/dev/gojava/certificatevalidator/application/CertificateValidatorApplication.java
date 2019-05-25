@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @ComponentScan({
-		"dev.gojava.certificatevalidator.controler",
+		"dev.gojava.certificatevalidator.controller",
 		"dev.gojava.certificatevalidator.data.*",
 		"dev.gojava.certificatevalidator.service",
 })
