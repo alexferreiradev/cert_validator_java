@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 @CompileStatic
 class CertificateService {
 
-	private CertificateRepository certificateRepository
+	CertificateRepository certificateRepository
 
 	Certificate get(Long id) throws NotFoundException {
 		NotFoundException notFoundException = new NotFoundException("id", String.valueOf(id))
