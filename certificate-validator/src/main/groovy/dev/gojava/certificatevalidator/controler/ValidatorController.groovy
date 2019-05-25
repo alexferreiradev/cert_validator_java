@@ -19,9 +19,6 @@ import org.springframework.web.servlet.ModelAndView
 @SuppressWarnings("unused")
 class ValidatorController {
 
-	private static final String INVALID_TEMPLATE_PAGE = "/page/validator/invalid"
-	private static final String VALID_TEMPLATE_PAGE = "/page/validator/valid"
-
 	private static final Logger LOG = LoggerFactory.getLogger(ValidatorController)
 
 	@Autowired
@@ -45,10 +42,11 @@ class ValidatorController {
 			modelAndView.viewName = "error"
 		}
 
+		modelAndView.viewName = "page/validator/validator"
 		if (!tokenExist) {
-			modelAndView.viewName = INVALID_TEMPLATE_PAGE
+			modelAndView.model.put("humanStatus", "Inválido")
 		} else {
-			modelAndView.viewName = VALID_TEMPLATE_PAGE
+			modelAndView.model.put("humanStatus", "Válido")
 		}
 
 		return modelAndView

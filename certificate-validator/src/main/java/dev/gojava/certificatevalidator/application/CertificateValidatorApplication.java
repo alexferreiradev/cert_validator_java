@@ -15,7 +15,7 @@ import java.util.Arrays;
 @ComponentScan({
 		"dev.gojava.certificatevalidator.controler",
 		"dev.gojava.certificatevalidator.data.*",
-		"dev.gojava.certificatevalidator.service.*",
+		"dev.gojava.certificatevalidator.service",
 })
 public class CertificateValidatorApplication {
 

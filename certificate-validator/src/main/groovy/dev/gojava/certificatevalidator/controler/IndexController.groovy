@@ -2,8 +2,6 @@ package dev.gojava.certificatevalidator.controler
 
 import groovy.transform.CompileStatic
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.ModelAndView
 
@@ -18,16 +16,6 @@ class IndexController {
 	ModelAndView getIndex(ModelAndView modelAndView) {
 		modelAndView.model.put("name", "Alex Rabelo Ferreira")
 		modelAndView.viewName = "index"
-
-		return modelAndView
-	}
-
-	@PostMapping("/validator")
-	@SuppressWarnings("unused")
-	ModelAndView getValidator(@RequestParam("token") String token, ModelAndView modelAndView) {
-		modelAndView.viewName = "page/validator/validator.html"
-		modelAndView.model.put("token", token)
-		modelAndView.model.put("humanStatus", "Válido")
 
 		return modelAndView
 	}

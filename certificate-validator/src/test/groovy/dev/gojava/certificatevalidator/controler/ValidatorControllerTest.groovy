@@ -33,9 +33,9 @@ class ValidatorControllerTest {
 		Mockito.when(certificateService.tokenExist(validToken)).thenReturn(true)
 
 		mockMvc.perform(
-				MockMvcRequestBuilders.get("/validateToken"))
+				MockMvcRequestBuilders.post("/validator/validate").param("token", validToken))
 				.andDo(MockMvcResultHandlers.print())
-				.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("valid")))
+				.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Válido")))
 	}
 
 	@Test
@@ -44,8 +44,8 @@ class ValidatorControllerTest {
 		Mockito.when(certificateService.tokenExist(invalidToken)).thenReturn(false)
 
 		mockMvc.perform(
-				MockMvcRequestBuilders.get("/validateToken"))
+				MockMvcRequestBuilders.post("/validator/validate").param("token", invalidToken))
 				.andDo(MockMvcResultHandlers.print())
-				.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("invalid")))
+				.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Inválido")))
 	}
 }
