@@ -1,7 +1,6 @@
 package dev.gojava.certificatevalidator.service
 
 import dev.gojava.certificatevalidator.data.model.Certificate
-import dev.gojava.certificatevalidator.data.repository.CertificateRepository
 import dev.gojava.certificatevalidator.service.exception.NotFoundException
 import groovy.transform.CompileStatic
 import org.junit.Assert
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @CompileStatic
@@ -24,7 +22,7 @@ class CertificateServiceTest {
 	public ExpectedException expectedException = ExpectedException.none()
 
 	@Mock
-	CertificateRepository repository
+	List<Certificate> certificates
 
 	@InjectMocks
 	CertificateService service
@@ -38,9 +36,15 @@ class CertificateServiceTest {
 
 	@Test
 	void tokenExist_whenHasCertificateToken() {
-		Certificate cert1 = Mockito.mock(Certificate)
 		String validToken = "123"
-		Mockito.when(repository.findDistinctByToken(validToken)).thenReturn(Optional.of(cert1))
+		Certificate invalidCert = new Certificate()
+		Certificate validCert = new Certificate()
+		validCert.token = validToken
+		List<Certificate> fakeCertificates = [
+				invalidCert,
+				validCert
+		]
+		service.saveCertificatesImported(fakeCertificates)
 
 		boolean tokenExist = service.tokenExist(validToken)
 
@@ -48,43 +52,27 @@ class CertificateServiceTest {
 	}
 
 	@Test
-	void certificateCanBeFound_whenRepositoryHas() {
+	void certificateCanBeFound_whenTokenIsValid() {
 		String validToken = "123"
-		Certificate cert1 = Mockito.mock(Certificate)
-		Mockito.when(repository.findDistinctByToken(validToken)).thenReturn(Optional.of(cert1))
-
+		Certificate invalidCert = new Certificate()
+		Certificate validCert = new Certificate()
+		validCert.token = validToken
+		List<Certificate> fakeCertificates = [
+				invalidCert,
+				validCert
+		]
+		service.saveCertificatesImported(fakeCertificates)
 		Certificate byToken = service.findByToken(validToken)
 
 		Assert.assertNotNull(byToken)
 	}
 
-	@Test
-	void certificateCanBeFound_whenRepositoryHasById() {
-		Long validId = Long.valueOf(1)
-		Certificate cert1 = Mockito.mock(Certificate)
-		Mockito.when(cert1.id).thenReturn(validId)
-		Mockito.when(repository.findById(validId)).thenReturn(Optional.of(cert1))
-
-		Certificate byToken = service.get(validId)
-
-		Assert.assertNotNull(byToken)
-	}
-
 //	 +++++++++++++++++++++++++++++++++++++ Testes negativos e de tickets
-	@Test
-	void invalidIdThrowNotFound_whenRepositoryThrowAnyError() {
-		Long invalidId = Long.valueOf(1)
-		Mockito.when(repository.findById(invalidId)).thenThrow(RuntimeException.class)
-
-		expectedException.expect(NotFoundException)
-		expectedException.expectMessage("Não foi encontrado o model devido erro interno")
-		service.get(invalidId)
-	}
 
 	@Test
 	void invalidTokenThrowNotFound_whenRepositoryThrowAnyError() {
 		String invalidToken = "123"
-		Mockito.when(repository.findDistinctByToken(invalidToken)).thenThrow(RuntimeException.class)
+		service.saveCertificatesImported(null)
 
 		expectedException.expect(NotFoundException)
 		expectedException.expectMessage("Não foi encontrado o model devido erro interno")
@@ -94,7 +82,7 @@ class CertificateServiceTest {
 	@Test
 	void tokenExistNotThrowError_whenThrowAnyErrorIntern() {
 		String invalidToken = "123"
-		Mockito.when(repository.findDistinctByToken(invalidToken)).thenThrow(RuntimeException.class)
+		service.saveCertificatesImported(null)
 
 		boolean exist = service.tokenExist(invalidToken)
 		Assert.assertFalse(exist)
