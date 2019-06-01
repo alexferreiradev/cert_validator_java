@@ -4,7 +4,10 @@
 		{
 			"certificate": {
 				"token": "1234",
-				"identification": "1234567"
+				"participant": {
+					"identifier": "1234567",
+					"name": "Participante teste"
+				}
 			}
 		},
 		{
