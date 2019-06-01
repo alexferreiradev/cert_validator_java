@@ -37,6 +37,8 @@ dependencies {
 //	Dependencias para compilar em Groovy
 	implementation 'org.codehaus.groovy:groovy'
 
+	implementation 'com.google.code.gson:gson:2.8.5' // Conversao de JSON
+
 //	Dependencias de teste ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -50,10 +52,4 @@ dependencies {
 //	testRuntime "net.bytebuddy:byte-buddy:1.8.21"          // allows mocking of classes (in addition to interfaces)
 //	testRuntime "org.objenesis:objenesis:2.6"    // allows mocking of classes without default constructor (together with CGLIB)
 //	testRuntime "com.h2database:h2:1.4.197" // Allows use of data base em memoria
-}
-
-//noinspection GroovyAssignabilityCheck
-bootJar {
-	baseName = 'cert-validator'
-	version =  '1.0.0'
 }
