@@ -1,5 +1,6 @@
 package dev.gojava.certificatevalidator.service
 
+
 import dev.gojava.certificatevalidator.data.model.Certificate
 import dev.gojava.certificatevalidator.data.repository.CertificateRepository
 import dev.gojava.certificatevalidator.service.exception.NotFoundException
@@ -43,5 +44,9 @@ class CertificateService {
 		}
 
 		return byToken.orElseThrow({ -> notFoundException })
+	}
+
+	void saveCertificatesImported(List<Certificate> jsonFiles) {
+
 	}
 }
