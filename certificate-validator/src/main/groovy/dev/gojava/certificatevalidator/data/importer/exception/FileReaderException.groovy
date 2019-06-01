@@ -1,4 +1,4 @@
-package dev.gojava.certificatevalidator.data.reader.exception
+package dev.gojava.certificatevalidator.data.importer.exception
 
 import groovy.transform.CompileStatic
 import groovy.transform.EqualsAndHashCode
