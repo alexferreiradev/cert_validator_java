@@ -3,6 +3,7 @@ package dev.gojava.certificatevalidator.service
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -29,6 +30,7 @@ class FileImporterTest {
 		// todo Apagar arquivos em pasta json_files
 	}
 
+	@Ignore("Tem que criar arquivos em pasta")
 	@Test()
 	void whenCallOnApplication_callsaveOnService() {
 		ContextRefreshedEvent event = Mockito.mock(ContextRefreshedEvent)
