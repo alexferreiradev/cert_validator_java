@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org">
+<head>
+	<title>Getting Started: Serving Web Content</title>
+	<link rel="stylesheet" href="../../css/main-static.css" th:href="@{/css/main.css}"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Validador de certificados Gojava</h1>
+<div>
+	<form action="validator/validate" method="post">
+		<label for="token">Token de validação:</label>
+		<input type="text" id="token" name="token"/>
+
+		<button type="submit" name="validate">Validar</button>
+	</form>
+</div>
+</body>
+</html>
