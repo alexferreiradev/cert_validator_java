@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service
 @CompileStatic
 class CertificateService {
 
+	private List<Certificate> certificates
+
 	CertificateRepository certificateRepository
 
 	Certificate get(Long id) throws NotFoundException {
@@ -46,7 +48,7 @@ class CertificateService {
 		return byToken.orElseThrow({ -> notFoundException })
 	}
 
-	void saveCertificatesImported(List<Certificate> jsonFiles) {
-
+	void saveCertificatesImported(List<Certificate> certificates) {
+		this.certificates = certificates
 	}
 }
