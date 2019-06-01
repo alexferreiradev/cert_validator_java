@@ -1,0 +1,17 @@
+{
+	"integrity_key": "12345566676",
+	"certificates": [
+		{
+			"certificate": {
+				"token": "1234",
+				"identification": "1234567"
+			}
+		},
+		{
+			"certificate": {
+				"token": "1234",
+				"identification": "1234566"
+			}
+		}
+	]
+}
