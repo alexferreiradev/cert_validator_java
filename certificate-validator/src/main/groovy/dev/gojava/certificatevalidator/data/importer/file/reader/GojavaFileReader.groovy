@@ -5,6 +5,6 @@ import dev.gojava.certificatevalidator.data.importer.model.ObjectFromFile
 
 interface GojavaFileReader<T extends ObjectFromFile> {
 
-	List<T> importObjects(String filePath) throws FileReaderException
+	List<T> importObjects() throws FileReaderException
 
 }

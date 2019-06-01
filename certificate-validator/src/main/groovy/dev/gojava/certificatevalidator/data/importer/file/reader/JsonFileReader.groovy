@@ -1,6 +1,8 @@
 package dev.gojava.certificatevalidator.data.importer.file.reader
 
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dev.gojava.certificatevalidator.data.importer.exception.FileReaderException
 import dev.gojava.certificatevalidator.data.importer.model.JsonFile
 import dev.gojava.certificatevalidator.helper.StreamHelper
@@ -12,7 +14,7 @@ class JsonFileReader implements GojavaFileReader<JsonFile> {
 	public static final String JSON_FILES_DIR = "json_files"
 
 	@Override
-	List<JsonFile> importObjects(String filePath) throws FileReaderException {
+	List<JsonFile> importObjects() throws FileReaderException {
 		File jsonFilesDir = buildJsonDir()
 		validateDiretory(jsonFilesDir)
 		File[] jsonFiles = createFileList(jsonFilesDir)
@@ -53,8 +55,11 @@ class JsonFileReader implements GojavaFileReader<JsonFile> {
 	}
 
 	private static JsonFile importBaseModel(String jsonText) {
-		Gson gson = new Gson()
+		Gson gson = new GsonBuilder()
+				.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+				.create()
 		JsonFile fromJson = gson.fromJson(jsonText, JsonFile)
+
 		return fromJson
 	}
 
