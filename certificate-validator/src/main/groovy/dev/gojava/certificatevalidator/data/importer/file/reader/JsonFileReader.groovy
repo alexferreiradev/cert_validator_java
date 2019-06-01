@@ -45,6 +45,7 @@ class JsonFileReader implements GojavaFileReader<JsonFile> {
 		jsonFiles.toList().stream().forEach({ File jsonFile ->
 			InputStream stream = new FileInputStream(jsonFile)
 			String jsonText = StreamHelper.parseStream(stream)
+			StreamHelper.closeSafeInput(stream)
 			JsonFile jsonFileObj = importBaseModel(jsonText)
 			jsonFileObj.fileName = jsonFile.name
 

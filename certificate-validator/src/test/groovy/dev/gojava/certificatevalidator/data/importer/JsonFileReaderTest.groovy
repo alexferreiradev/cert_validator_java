@@ -30,7 +30,7 @@ class JsonFileReaderTest {
 	}
 
 	private static void destroyJsonDir(File file) {
-		boolean delete = file.deleteOnExit()
+		boolean delete = file.deleteDir()
 		if (!delete) {
 			Assert.fail("Pasta com arquivos de testes não pode ser removida, remova antes de executar novo teste")
 		}
