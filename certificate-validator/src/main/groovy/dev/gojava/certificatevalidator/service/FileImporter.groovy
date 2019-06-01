@@ -22,19 +22,22 @@ class FileImporter {
 		println "Iniciando importação de arquivos json com informações de certificados"
 
 		GojavaFileReader<JsonFile> reader = new JsonFileReader()
-		List<JsonFile> jsonFiles = []
+		List<JsonFile> jsonFiles
 		try {
 			jsonFiles = reader.importObjects()
+			println "Foram importados ${jsonFiles.size()} arquivos"
 		} catch (Exception e) {
 			println "Erro ao importar: ${e.message}"
 			println "Erro ao tentar importar arquivos JSON, aplicação irá terminar"
 
-			System.exit(-1)
+			throw new IllegalStateException("Erro ao importar json")
 		}
 		List<Certificate> certificates = jsonFiles.findResults { JsonFile json ->
 			return json.certificateList
 		}.flatten() as List<Certificate>
 
+		println "Foram importados ${certificates.size()} certificados"
 		certificateService.saveCertificatesImported(certificates)
+		println "Foram salvos ${certificates.size()} certificados"
 	}
 }
