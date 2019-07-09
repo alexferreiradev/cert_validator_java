@@ -1,19 +1,47 @@
 package dev.gojava.certificatevalidator.service
 
 import dev.gojava.certificatevalidator.data.model.Certificate
+import dev.gojava.certificatevalidator.data.repository.CertificateRepository
+import dev.gojava.certificatevalidator.service.exception.NotFoundException
 import groovy.transform.CompileStatic
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
 import org.springframework.stereotype.Service
 
+@SuppressWarnings("unused")
 @Service
 @CompileStatic
-@EqualsAndHashCode(callSuper = true)
-@ToString(includeFields = true, includeSuper = true)
 class CertificateService {
 
-	List<Certificate> getAllCertificate() {
-		return null
+	private CertificateRepository certificateRepository
+
+	Certificate get(Long id) throws NotFoundException {
+		NotFoundException notFoundException = new NotFoundException("id", String.valueOf(id))
+		Optional<Certificate> byId = Optional.empty()
+		try {
+			byId = certificateRepository.findById(id)
+		} catch (Exception e) {
+			notFoundException = new NotFoundException(e)
+		}
+		return byId.orElseThrow({ -> notFoundException })
 	}
 
+	boolean tokenExist(String token) {
+		try {
+			return findByToken(token) != null
+		} catch (Exception ignored) {
+		}
+
+		return false
+	}
+
+	Certificate findByToken(String token) throws NotFoundException {
+		NotFoundException notFoundException = new NotFoundException("token", token)
+		Optional<Certificate> byToken = Optional.empty()
+		try {
+			byToken = certificateRepository.findDistinctByToken(token)
+		} catch (Exception e) {
+			notFoundException = new NotFoundException(e)
+		}
+
+		return byToken.orElseThrow({ -> notFoundException })
+	}
 }
