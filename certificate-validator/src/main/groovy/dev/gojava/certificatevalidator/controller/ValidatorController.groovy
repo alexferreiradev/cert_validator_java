@@ -1,5 +1,6 @@
 package dev.gojava.certificatevalidator.controller
 
+import dev.gojava.certificatevalidator.data.model.Certificate
 import dev.gojava.certificatevalidator.service.CertificateService
 import groovy.transform.CompileStatic
 import org.slf4j.Logger
@@ -37,6 +38,9 @@ class ValidatorController {
 		boolean tokenExist = false
 		try {
 			tokenExist = certificateService.tokenExist(token)
+			Certificate certificate = certificateService.findByToken(token)
+			modelAndView.model.put("participantName", certificate.participant.name)
+			modelAndView.model.put("token", certificate.token)
 		} catch (Exception e) {
 			LOG.error("Erro ao tentar validar token: ", e)
 			modelAndView.viewName = "error"
