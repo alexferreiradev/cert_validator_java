@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org">
+<head>
+	<title>Validação de certificado</title>
+</head>
+<body>
+
+<h1>Resultado de validação de certificado</h1>
+<div>
+	Token para validação: <span th:text="${token}">123</span><br>
+	Estado: <span th:text="${humanStatus}">Inválido</span>
+	Nome do participante: <span th:text="${participantName}">Nome do participante</span>
+</div>
+</body>
+</html>
